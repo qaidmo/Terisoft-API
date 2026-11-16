@@ -1,0 +1,4 @@
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(1468,38): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(1468,38): error CS1026: ) expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+
+The build failed. Fix the build errors and run again.

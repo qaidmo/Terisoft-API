@@ -1,0 +1,3 @@
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(1768,13): error CS1524: Expected catch or finally [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+
+The build failed. Fix the build errors and run again.

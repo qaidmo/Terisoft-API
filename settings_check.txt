@@ -1,0 +1,9 @@
+{
+  "BaseServerName": "DESKTOP-DHV2UG0",
+  "InstanceName": "TS",
+  "Database": "DEMO",
+  "User": "sa",
+  "Password": "ts@123",
+  "SupabaseUrl": "https://ueipplbjrzjstlwrblyb.supabase.co",
+  "SupabaseKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVlaXBwbGJqcnpqc3Rsd3JibHliIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NTI5Mjc4MiwiZXhwIjoyMDgwODY4NzgyfQ.81uegpe-sj4Rb55mVeGh8PseBhj_qZ6a5aGKr01gRYs"
+}

@@ -1,0 +1,134 @@
+﻿<Window x:Class="AccountingSyncApp.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="إعدادات الاتصال" 
+        Height="557" Width="500" MinWidth="450" MinHeight="450"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#FF2D2D30"/>
+        <SolidColorBrush x:Key="SecondaryBackgroundColor" Color="#FF3F3F46"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#FF007ACC"/>
+        <SolidColorBrush x:Key="AccentHoverColor" Color="#FF0099FF"/>
+        <SolidColorBrush x:Key="ForegroundColor" Color="White"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#FF555555"/>
+        <SolidColorBrush x:Key="GroupBoxHeaderColor" Color="#FFCCCCCC"/>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource SecondaryBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background" Value="{StaticResource SecondaryBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource AccentHoverColor}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="Foreground" Value="{StaticResource GroupBoxHeaderColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Window.Resources>
+
+    <Border CornerRadius="10" Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AccentColor}" BorderThickness="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="إعدادات قاعدة البيانات" FontSize="24" FontWeight="Light" Foreground="White"
+                           HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Header="إعدادات SQL Server" FontWeight="Bold" Margin="0,0,0,10">
+                        <StackPanel FlowDirection="RightToLeft">
+
+                            <Label Content="اسم السيرفر الأساسي (الجهاز/IP):" Foreground="White" Margin="0,5,0,2"/>
+                            <TextBox x:Name="BaseServerNameTextBox" ToolTip="مثال: DESKTOP-PC أو localhost"/>
+
+                            <Label Content="اسم المثبت Instance ( مثل TS):" Foreground="White" Margin="0,10,0,2"/>
+                            <TextBox x:Name="InstanceNameTextBox" ToolTip="اتركه فارغاً إذا كنت تستخدم النسخة الافتراضية"/>
+
+                            <Label Content="اسم قاعدة البيانات:" Foreground="White" Margin="0,10,0,2"/>
+                            <TextBox x:Name="DatabaseTextBox" ToolTip="مثال: A_DATA"/>
+
+                            <Label Content="اسم المستخدم (SQL User):" Foreground="White" Margin="0,10,0,2"/>
+                            <TextBox x:Name="UserTextBox" ToolTip="مثال: sa"/>
+
+                            <Label Content="كلمة المرور:" Foreground="White" Margin="0,10,0,2"/>
+                            <PasswordBox x:Name="PasswordBox"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                </Grid>
+
+                <Button Grid.Row="2" x:Name="SaveButton" Click="SaveButton_Click"
+                        Content="حفظ وبدء التشغيل" HorizontalAlignment="Stretch" Margin="0,10,0,0"/>
+
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</Window>

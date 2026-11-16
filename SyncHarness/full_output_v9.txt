@@ -1,0 +1,49 @@
+STARTING SYNC HARNESS
+--- Executing SyncReceiptsFromSupabaseAsync ---
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      --- Starting Receipt/Payment Voucher Sync (Supabase -> SQL Server) ---
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (46ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [t].[YRID], [t].[YRMAXDATE], [t].[YRMINDATE], [t].[YRSTATUS], [t].[YRVALUE]
+      FROM [TSSYSYEAR] AS [t]
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      No new vouchers found in Supabase to sync.
+--- Finished SyncReceiptsFromSupabaseAsync ---
+--- Executing SyncVouchersToSupabaseAsync ---
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      --- Starting Reverse Voucher Sync (SQL Server -> Supabase) ---
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [s].[BRAID]
+      FROM [SUNBRANCH] AS [s]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [t].[YRID], [t].[YRMAXDATE], [t].[YRMINDATE], [t].[YRSTATUS], [t].[YRVALUE]
+      FROM [TSSYSYEAR] AS [t]
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DynamicTableLogic] Found 1 Years. Count>1? False. Selected Year Suffix: ''
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (18ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP 1 1 FROM SUNTRANSHEADLINE1
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DynamicTableLogic] Verified Active Tables for Branch 1: SUNTRANSHEADLINE1
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Found 1 voucher tables sets using Dynamic Logic.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT
+                          TraId, TraNo, TraLstId, TraTitle, TraDateId, TraTimeId, TraDateTime, /* ╪¬╪ú┘â╪»┘å╪º ┘à┘å ╪¼┘ä╪¿ ╪º┘ä╪¬╪º╪▒┘è╪« */
+                          TraPatId, TraTot, TraDis, TraTax, TraNet,
+                          TraCurId, TraYearId, TraPatName, TraStoreId, TrauId, TraBraId, TraSecId, TraAccId, TraAccName, TraRemarks, TraCcId, TraNetLet, 
+                          TraPatRefId, /* ╪¼┘ä╪¿┘å╪º ID ╪º┘ä┘à╪▒╪¼╪╣ */
+                          'SUNTRANSHEADLINE1' AS OriginalTableName
+                          FROM SUNTRANSHEADLINE1
+                          WHERE TraLstId IN ('201', '202')
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Read 6 total vouchers from SQL.
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Filtered Vouchers: 0 need processing.
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      All vouchers are up-to-date.
+--- Finished SyncVouchersToSupabaseAsync ---
+HARNESS COMPLETE

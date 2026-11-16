@@ -1,0 +1,255 @@
+STARTING SYNC HARNESS
+--- Executing SyncReceiptsFromSupabaseAsync ---
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      --- Starting Receipt/Payment Voucher Sync (Supabase -> SQL Server) ---
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (30ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [t].[YRID], [t].[YRMAXDATE], [t].[YRMINDATE], [t].[YRSTATUS], [t].[YRVALUE]
+      FROM [TSSYSYEAR] AS [t]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT COUNT(*)
+      FROM [TSSYSYEAR] AS [t]
+warn: Microsoft.EntityFrameworkCore.Query[10103]
+      The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (24ms) [Parameters=[p0='?' (Size = 4000), p1='?' (Size = 4000), p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [t].[Value]
+      FROM (
+          SELECT TOP 1 TraNo AS Value FROM SunTransHeadline1 
+                                                      WHERE TraBraId = @p0 AND TraLstId = @p1 AND TrauId = @p2
+                                                      ORDER BY CONVERT(BIGINT, TraNo) DESC
+      ) AS [t]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransHead1 
+                  (TraId, TraNo, TraLstId, TraYearId, TraSysId, TraBraId, TraComId, TraSecId, TraPosId, TraIndex, 
+                  TraDateId, TraTimeId, TraDateTimeId, TraDateTime, TraDate, TraStatusDel, TraTitle, TraSync) 
+                  VALUES 
+                  (@p0, @p1, @p2, @p3, '1', @p4, '1', @p5, '0', '0', 
+                  '0', @p6, @p7, @p8, @p9, '0', @p10, '1')
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (8ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (Size = 4000), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (Size = 4000), @p28='?' (Size = 4000), @p29='?' (Size = 4000), @p30='?' (Size = 4000), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransHeadline1 
+                  (TraId, TraNo, TraRefr, TraPatRefId, TraTitle, TraRepTitle, TraCurId, TraCurValue, TraAccId, TraAccName, 
+                  TraPatId, TraPatName, TraTot, TraDis, TraTax, TraNet, TraCbn, TraNetLet, TraStoreId, 
+                  TraStoreName, TrauId, TrauName, TraStatusDel, TraLstId, TraYearId, TraBraId, TraDateId, TraDate, TraTimeId, 
+                  TraDateTime, TraDateTimeId, TraComId, TraSecId, TraPosId, TraIndex, 
+                  TraLastEditUsrId, TraLastEditUsrName, TraOptions, TraCheekDate, TraCheekDateId, TRAPATCODEOK, TraSysId) 
+                  VALUES 
+                  (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, 
+                  @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, 
+                  @p19, @p20, @p21, '0', @p22, @p23, @p24, @p25, @p26, @p27, 
+                  @p28, @p29, @p30, @p31, '0', '0', 
+                  @p32, @p33, '000000', @p34, @p35, '0', @p36)
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (87ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p7='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p8='?' (Size = 4000), @p9='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p18='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p19='?' (Size = 4000), @p20='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransAcc1 
+                      (TRADID, TRAID, TRADINDEX, TRADSIGNAL, TRADSIGDBT, TRADSIGCDT, 
+                      TRADACCID, TRADACCNAME, TRADAMOUNT, TRADPRICE, 
+                      TRADACCCURID, TRADACCCURVALUE, TRADQTY) VALUES 
+                      (@p0, @p1, '1', '1', @p2, @p3, 
+                       @p4, @p5, @p6, @p7, 
+                       @p8, @p9, '1'),
+                              (@p10, @p11, @p12, '1', @p13, @p14, 
+                               @p15, @p16, @p17, @p18, 
+                               @p19, @p20, '1')
+fail: AccountingSyncAPP.Services.TransactionSyncService[0]
+      Failed to sync voucher with Supabase ID: 7f707a1e-1c56-45cc-9dc8-f20148ec5d91. Rolling back.
+      Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'TRADDEBIT', table 'DEMO.dbo.SUNTRANSACC1'; column does not allow nulls. INSERT fails.
+      The statement has been terminated.
+         at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+         at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+         at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+         at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+         at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+         at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+         at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+         at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+         at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+         at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+         at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+      --- End of stack trace from previous location ---
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRawAsync(DatabaseFacade databaseFacade, String sql, IEnumerable`1 parameters, CancellationToken cancellationToken)
+         at AccountingSyncAPP.Services.TransactionSyncService.SyncReceiptsFromSupabaseAsync(CancellationToken stoppingToken) in D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs:line 1537
+      ClientConnectionId:a6b24320-97c0-4bdf-b3e0-cd41164e654e
+      Error Number:515,State:2,Class:16
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransHead1 
+                  (TraId, TraNo, TraLstId, TraYearId, TraSysId, TraBraId, TraComId, TraSecId, TraPosId, TraIndex, 
+                  TraDateId, TraTimeId, TraDateTimeId, TraDateTime, TraDate, TraStatusDel, TraTitle, TraSync) 
+                  VALUES 
+                  (@p0, @p1, @p2, @p3, '1', @p4, '1', @p5, '0', '0', 
+                  '0', @p6, @p7, @p8, @p9, '0', @p10, '1')
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (5ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (Size = 4000), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (Size = 4000), @p28='?' (Size = 4000), @p29='?' (Size = 4000), @p30='?' (Size = 4000), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransHeadline1 
+                  (TraId, TraNo, TraRefr, TraPatRefId, TraTitle, TraRepTitle, TraCurId, TraCurValue, TraAccId, TraAccName, 
+                  TraPatId, TraPatName, TraTot, TraDis, TraTax, TraNet, TraCbn, TraNetLet, TraStoreId, 
+                  TraStoreName, TrauId, TrauName, TraStatusDel, TraLstId, TraYearId, TraBraId, TraDateId, TraDate, TraTimeId, 
+                  TraDateTime, TraDateTimeId, TraComId, TraSecId, TraPosId, TraIndex, 
+                  TraLastEditUsrId, TraLastEditUsrName, TraOptions, TraCheekDate, TraCheekDateId, TRAPATCODEOK, TraSysId) 
+                  VALUES 
+                  (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, 
+                  @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, 
+                  @p19, @p20, @p21, '0', @p22, @p23, @p24, @p25, @p26, @p27, 
+                  @p28, @p29, @p30, @p31, '0', '0', 
+                  @p32, @p33, '000000', @p34, @p35, '0', @p36)
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (6ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p7='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p8='?' (Size = 4000), @p9='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p18='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p19='?' (Size = 4000), @p20='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransAcc1 
+                      (TRADID, TRAID, TRADINDEX, TRADSIGNAL, TRADSIGDBT, TRADSIGCDT, 
+                      TRADACCID, TRADACCNAME, TRADAMOUNT, TRADPRICE, 
+                      TRADACCCURID, TRADACCCURVALUE, TRADQTY) VALUES 
+                      (@p0, @p1, '1', '1', @p2, @p3, 
+                       @p4, @p5, @p6, @p7, 
+                       @p8, @p9, '1'),
+                              (@p10, @p11, @p12, '1', @p13, @p14, 
+                               @p15, @p16, @p17, @p18, 
+                               @p19, @p20, '1')
+fail: AccountingSyncAPP.Services.TransactionSyncService[0]
+      Failed to sync voucher with Supabase ID: e30f5ff5-cd11-4040-8b87-6359ba68413c. Rolling back.
+      Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'TRADDEBIT', table 'DEMO.dbo.SUNTRANSACC1'; column does not allow nulls. INSERT fails.
+      The statement has been terminated.
+         at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+         at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+         at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+         at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+         at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+         at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+         at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+         at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+         at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+         at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+         at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+      --- End of stack trace from previous location ---
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRawAsync(DatabaseFacade databaseFacade, String sql, IEnumerable`1 parameters, CancellationToken cancellationToken)
+         at AccountingSyncAPP.Services.TransactionSyncService.SyncReceiptsFromSupabaseAsync(CancellationToken stoppingToken) in D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs:line 1537
+      ClientConnectionId:a6b24320-97c0-4bdf-b3e0-cd41164e654e
+      Error Number:515,State:2,Class:16
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (10ms) [Parameters=[p0='?' (Size = 4000), p1='?' (Size = 4000), p2='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      SELECT TOP(1) [t].[Value]
+      FROM (
+          SELECT TOP 1 TraNo AS Value FROM SunTransHeadline1 
+                                                      WHERE TraBraId = @p0 AND TraLstId = @p1 AND TrauId = @p2
+                                                      ORDER BY CONVERT(BIGINT, TraNo) DESC
+      ) AS [t]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransHead1 
+                  (TraId, TraNo, TraLstId, TraYearId, TraSysId, TraBraId, TraComId, TraSecId, TraPosId, TraIndex, 
+                  TraDateId, TraTimeId, TraDateTimeId, TraDateTime, TraDate, TraStatusDel, TraTitle, TraSync) 
+                  VALUES 
+                  (@p0, @p1, @p2, @p3, '1', @p4, '1', @p5, '0', '0', 
+                  '0', @p6, @p7, @p8, @p9, '0', @p10, '1')
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 4000), @p10='?', @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (Size = 4000), @p18='?' (Size = 4000), @p19='?' (Size = 4000), @p20='?' (Size = 4000), @p21='?' (Size = 4000), @p22='?' (Size = 4000), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 4000), @p26='?' (Size = 4000), @p27='?' (Size = 4000), @p28='?' (Size = 4000), @p29='?' (Size = 4000), @p30='?' (Size = 4000), @p31='?' (Size = 4000), @p32='?' (Size = 4000), @p33='?' (Size = 4000), @p34='?' (Size = 4000), @p35='?' (Size = 4000), @p36='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransHeadline1 
+                  (TraId, TraNo, TraRefr, TraPatRefId, TraTitle, TraRepTitle, TraCurId, TraCurValue, TraAccId, TraAccName, 
+                  TraPatId, TraPatName, TraTot, TraDis, TraTax, TraNet, TraCbn, TraNetLet, TraStoreId, 
+                  TraStoreName, TrauId, TrauName, TraStatusDel, TraLstId, TraYearId, TraBraId, TraDateId, TraDate, TraTimeId, 
+                  TraDateTime, TraDateTimeId, TraComId, TraSecId, TraPosId, TraIndex, 
+                  TraLastEditUsrId, TraLastEditUsrName, TraOptions, TraCheekDate, TraCheekDateId, TRAPATCODEOK, TraSysId) 
+                  VALUES 
+                  (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, 
+                  @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, 
+                  @p19, @p20, @p21, '0', @p22, @p23, @p24, @p25, @p26, @p27, 
+                  @p28, @p29, @p30, @p31, '0', '0', 
+                  @p32, @p33, '000000', @p34, @p35, '0', @p36)
+fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
+      Failed executing DbCommand (1ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000), @p2='?' (Size = 4000), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p7='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p8='?' (Size = 4000), @p9='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p10='?' (Size = 4000), @p11='?' (Size = 4000), @p12='?' (Size = 4000), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (Size = 4000), @p17='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p18='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p19='?' (Size = 4000), @p20='?' (Precision = 18) (Scale = 2) (DbType = Decimal)], CommandType='Text', CommandTimeout='30']
+      INSERT INTO SunTransAcc1 
+                      (TRADID, TRAID, TRADINDEX, TRADSIGNAL, TRADSIGDBT, TRADSIGCDT, 
+                      TRADACCID, TRADACCNAME, TRADAMOUNT, TRADPRICE, 
+                      TRADACCCURID, TRADACCCURVALUE, TRADQTY) VALUES 
+                      (@p0, @p1, '1', '1', @p2, @p3, 
+                       @p4, @p5, @p6, @p7, 
+                       @p8, @p9, '1'),
+                              (@p10, @p11, @p12, '1', @p13, @p14, 
+                               @p15, @p16, @p17, @p18, 
+                               @p19, @p20, '1')
+fail: AccountingSyncAPP.Services.TransactionSyncService[0]
+      Failed to sync voucher with Supabase ID: d0bcd83c-168f-4f30-9478-e335f6938d93. Rolling back.
+      Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'TRADDEBIT', table 'DEMO.dbo.SUNTRANSACC1'; column does not allow nulls. INSERT fails.
+      The statement has been terminated.
+         at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+         at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+         at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+         at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+         at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+         at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+         at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+         at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+         at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+         at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+         at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+      --- End of stack trace from previous location ---
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+         at Microsoft.EntityFrameworkCore.RelationalDatabaseFacadeExtensions.ExecuteSqlRawAsync(DatabaseFacade databaseFacade, String sql, IEnumerable`1 parameters, CancellationToken cancellationToken)
+         at AccountingSyncAPP.Services.TransactionSyncService.SyncReceiptsFromSupabaseAsync(CancellationToken stoppingToken) in D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs:line 1537
+      ClientConnectionId:a6b24320-97c0-4bdf-b3e0-cd41164e654e
+      Error Number:515,State:2,Class:16
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      --- Receipt/Payment Voucher Sync Finished ---
+--- Finished SyncReceiptsFromSupabaseAsync ---
+--- Executing SyncVouchersToSupabaseAsync ---
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      --- Starting Reverse Voucher Sync (SQL Server -> Supabase) ---
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [s].[BRAID]
+      FROM [SUNBRANCH] AS [s]
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT [t].[YRID], [t].[YRMAXDATE], [t].[YRMINDATE], [t].[YRSTATUS], [t].[YRVALUE]
+      FROM [TSSYSYEAR] AS [t]
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DynamicTableLogic] Found 1 Years. Count>1? False. Selected Year Suffix: ''
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT TOP 1 1 FROM SUNTRANSHEADLINE1
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DynamicTableLogic] Verified Active Tables for Branch 1: SUNTRANSHEADLINE1
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Found 1 voucher tables sets using Dynamic Logic.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT
+                          TraId, TraNo, TraLstId, TraTitle, TraDateId, TraTimeId, TraDateTime, /* ╪¬╪ú┘â╪»┘å╪º ┘à┘å ╪¼┘ä╪¿ ╪º┘ä╪¬╪º╪▒┘è╪« */
+                          TraPatId, TraTot, TraDis, TraTax, TraNet,
+                          TraCurId, TraYearId, TraPatName, TraStoreId, TrauId, TraBraId, TraSecId, TraAccId, TraAccName, TraRemarks, TraCcId, TraNetLet, 
+                          TraPatRefId, /* ╪¼┘ä╪¿┘å╪º ID ╪º┘ä┘à╪▒╪¼╪╣ */
+                          'SUNTRANSHEADLINE1' AS OriginalTableName
+                          FROM SUNTRANSHEADLINE1
+                          WHERE TraLstId IN ('201', '202')
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Read 3 total vouchers from SQL.
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Filtered Vouchers: 1 need processing.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (38ms) [Parameters=[p0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      SELECT TraId, TradAccId, TradAccName, TradAmount, TradAccCurValue FROM SUNTRANSACC1 WHERE TraId IN (@p0)
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (354ms) [Parameters=[p0='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      SELECT TraId, TradTAccId, TradValue, TradSigD, TradSigC, TradCurValue, TradCurId, TradDetail, TradCcId, TradDatName FROM SUNTRANSJE1 WHERE TraId IN (@p0)
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      [DIAGNOSIS] Voucher 3 (ID: 112025112013) - Found 1 Details, 2 Postings.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (73ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+      UPDATE SUNTRANSHEADLINE1 SET TraPatRefId = @p0 WHERE TraId = @p1
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      Successfully synced/updated voucher 3 in Supabase.
+--- Finished SyncVouchersToSupabaseAsync ---
+HARNESS COMPLETE
+info: AccountingSyncAPP.Services.TransactionSyncService[0]
+      --- Reverse Voucher Sync Finished ---

@@ -1,0 +1,17 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(950,43): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(953,27): error CS1002: ; expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(953,27): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(1818,14): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+
+Build FAILED.
+
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(950,43): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(953,27): error CS1002: ; expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(953,27): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+D:\copy\AccountingSyncApp\AccountingSyncApp\Services\TransactionSyncService.cs(1818,14): error CS1513: } expected [D:\copy\AccountingSyncApp\AccountingSyncApp\AccountingSyncApp.csproj]
+    0 Warning(s)
+    4 Error(s)
+
+Time Elapsed 00:00:02.71
