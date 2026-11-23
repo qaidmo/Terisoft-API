@@ -35,8 +35,8 @@ namespace AccountingSyncAPP.Services
             string headlineTableName = $"SunTransHeadline{tableSuffix}";
 
             // Department row-level filter (only applied when DepartmentId is provided)
-            string departmentWhereClause = request.DepartmentId.HasValue
-                ? $"AND head.TraSecId = '{request.DepartmentId.Value}'"
+            string departmentWhereClause = (request.DepartmentId.HasValue && request.DepartmentId.Value > 0)
+                ? $"AND (head.TraSecId = '{request.DepartmentId.Value}' OR head.TRAID IS NULL)"
                 : "";
 
             string fromDateId = request.FromDate.ToString("yyyyMMdd");
@@ -45,11 +45,12 @@ namespace AccountingSyncAPP.Services
             string query = $@"
                 SELECT 
                     je.TRAID AS TraId,
-                    ISNULL(head.TRANO, '') AS TraNo,
+                    ISNULL(NULLIF(head.TRANO, ''), ISNULL(je.TRADREFNO, '')) AS TraNo,
+                    ISNULL(NULLIF(head.TRALSTID, ''), ISNULL(je.TRADLSTID, '')) AS TraLstId,
                     ISNULL(je.TRADDATE, '') AS Date,
-                    ISNULL(head.TRATITLE, '') AS Type,
+                    ISNULL(NULLIF(head.TRATITLE, ''), ISNULL(lst.LISTDNAME, '')) AS Type,
                     ISNULL(je.TRADDETAIL, '') AS Description,
-                    ISNULL(je.TRADDATNAME, '') AS Beneficiary,
+                    ISNULL(NULLIF(je.TRADDATNAME, ''), ISNULL(head.TRAPATNAME, '')) AS Beneficiary,
                     
                     CASE 
                         WHEN je.TRADSIGD = '1' THEN 
@@ -66,18 +67,14 @@ namespace AccountingSyncAPP.Services
                     CAST(0 AS DECIMAL(18,3)) AS Balance
 
                 FROM {jeTableName} je
-                INNER JOIN {headlineTableName} head ON je.TRAID = head.TRAID
+                LEFT JOIN {headlineTableName} head ON je.TRAID = head.TRAID
+                LEFT JOIN SUNSYSLISTDETAIL lst ON ISNULL(NULLIF(head.TRALSTID, ''), je.TRADLSTID) = lst.LISTDID
                 WHERE 
-                    (je.TRADACCID = {{0}} OR je.TRADTACCID = {{0}}) 
+                    (LTRIM(RTRIM(je.TRADACCID)) = LTRIM(RTRIM({{0}})) OR LTRIM(RTRIM(je.TRADTACCID)) = LTRIM(RTRIM({{0}}))) 
                     AND je.TRADCURID = {{1}} 
                     AND je.TRADDATEID >= {{2}} 
                     AND je.TRADDATEID <= {{3}} 
-                    -- Removed: AND head.TraLstId != '112'
-                    -- '112' (opening-balance journal entries) are now shown as
-                    -- regular rows in the period list instead of being silently
-                    -- routed into the opening-balance scalar. The complementary
-                    -- change in openingBalanceQuery prevents double-counting.
-                    AND head.TraStatusDel = '0'
+                    AND ISNULL(head.TraStatusDel, '0') = '0'
                     {departmentWhereClause}
                 ORDER BY je.TRADDATEID, je.TRAID";
 
@@ -88,15 +85,11 @@ namespace AccountingSyncAPP.Services
                     CASE WHEN je.TRADSIGC = '1' THEN CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3)) ELSE CAST(0 AS DECIMAL(18,3)) END
                 ), CAST(0 AS DECIMAL(18,3)))
                 FROM {jeTableName} je
-                INNER JOIN {headlineTableName} head ON je.TRAID = head.TRAID
+                LEFT JOIN {headlineTableName} head ON je.TRAID = head.TRAID
                 WHERE 
-                    (je.TRADACCID = {{0}} OR je.TRADTACCID = {{0}}) 
+                    (LTRIM(RTRIM(je.TRADACCID)) = LTRIM(RTRIM({{0}})) OR LTRIM(RTRIM(je.TRADTACCID)) = LTRIM(RTRIM({{0}}))) 
                     AND je.TRADCURID = {{1}} 
-                    AND head.TraStatusDel = '0'
-                    -- Only transactions strictly before the period start date
-                    -- contribute to the carried-forward opening balance.
-                    -- '112' entries are no longer caught here; they appear
-                    -- as visible rows in the period query instead.
+                    AND ISNULL(head.TraStatusDel, '0') = '0'
                     AND je.TRADDATEID < {{2}}
                     {departmentWhereClause}";
 
@@ -148,6 +141,7 @@ namespace AccountingSyncAPP.Services
                     {
                         TraId = "",
                         TraNo = "0",
+                        TraLstId = "",
                         Date = request.FromDate.AddDays(-1).ToString("dd/MM/yyyy"),
                         Type = "رصيد مرحل",
                         Description = "رصيد مرحل",
@@ -182,19 +176,23 @@ namespace AccountingSyncAPP.Services
             string jeTableName = $"SunTransJe{tableSuffix}";
             string headlineTableName = $"SunTransHeadline{tableSuffix}";
 
-            string departmentWhereClause = request.DepartmentId.HasValue
-                ? $"AND head.TraSecId = '{request.DepartmentId.Value}'"
+            string departmentWhereClause = (request.DepartmentId.HasValue && request.DepartmentId.Value > 0)
+                ? $"AND (head.TraSecId = '{request.DepartmentId.Value}' OR head.TRAID IS NULL)"
                 : "";
+
+            string fromDateId = request.FromDate.ToString("yyyyMMdd");
+            string toDateId = request.ToDate.ToString("yyyyMMdd");
 
             string signatureQuery = $@"
                 SELECT 
+                    '{fromDateId}_{toDateId}_' +
                     CAST(COUNT(1) AS VARCHAR(50)) + '_' + 
                     CAST(ISNULL(SUM(CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3))), 0) AS VARCHAR(50))
                 FROM {jeTableName} je
-                INNER JOIN {headlineTableName} head ON je.TRAID = head.TRAID
-                WHERE (je.TRADACCID = '{request.AccountId}' OR je.TRADTACCID = '{request.AccountId}')
+                LEFT JOIN {headlineTableName} head ON je.TRAID = head.TRAID
+                WHERE (LTRIM(RTRIM(je.TRADACCID)) = LTRIM(RTRIM('{request.AccountId}')) OR LTRIM(RTRIM(je.TRADTACCID)) = LTRIM(RTRIM('{request.AccountId}')))
                 AND je.TRADCURID = '{request.CurrencyId}'
-                AND head.TraStatusDel = '0'
+                AND ISNULL(head.TraStatusDel, '0') = '0'
                 {departmentWhereClause}";
 
             string currentSignature = "";
