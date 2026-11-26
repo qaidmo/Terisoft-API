@@ -54,13 +54,13 @@ namespace AccountingSyncAPP.Services
                     
                     CASE 
                         WHEN je.TRADSIGD = '1' THEN 
-                            CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3))
+                            ISNULL(TRY_CAST(NULLIF(LTRIM(RTRIM(je.TRADVALUE)), '') AS DECIMAL(18, 3)), CAST(0 AS DECIMAL(18,3)))
                         ELSE CAST(0 AS DECIMAL(18,3)) 
                     END AS Debit,
 
                     CASE 
                         WHEN je.TRADSIGC = '1' THEN 
-                            CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3))
+                            ISNULL(TRY_CAST(NULLIF(LTRIM(RTRIM(je.TRADVALUE)), '') AS DECIMAL(18, 3)), CAST(0 AS DECIMAL(18,3)))
                         ELSE CAST(0 AS DECIMAL(18,3)) 
                     END AS Credit,
                     
@@ -80,9 +80,9 @@ namespace AccountingSyncAPP.Services
 
             string openingBalanceQuery = $@"
                 SELECT ISNULL(SUM(
-                    CASE WHEN je.TRADSIGD = '1' THEN CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3)) ELSE CAST(0 AS DECIMAL(18,3)) END
+                    CASE WHEN je.TRADSIGD = '1' THEN ISNULL(TRY_CAST(NULLIF(LTRIM(RTRIM(je.TRADVALUE)), '') AS DECIMAL(18, 3)), CAST(0 AS DECIMAL(18,3))) ELSE CAST(0 AS DECIMAL(18,3)) END
                     -
-                    CASE WHEN je.TRADSIGC = '1' THEN CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3)) ELSE CAST(0 AS DECIMAL(18,3)) END
+                    CASE WHEN je.TRADSIGC = '1' THEN ISNULL(TRY_CAST(NULLIF(LTRIM(RTRIM(je.TRADVALUE)), '') AS DECIMAL(18, 3)), CAST(0 AS DECIMAL(18,3))) ELSE CAST(0 AS DECIMAL(18,3)) END
                 ), CAST(0 AS DECIMAL(18,3)))
                 FROM {jeTableName} je
                 LEFT JOIN {headlineTableName} head ON je.TRAID = head.TRAID
@@ -119,7 +119,7 @@ namespace AccountingSyncAPP.Services
                     .SqlQueryRaw<StatementTransactionDto>(
                         query,
                         request.AccountId,
-                        request.CurrencyId,
+                        request.CurrencyId.ToString(),
                         fromDateId,
                         toDateId
                     )
@@ -187,7 +187,7 @@ namespace AccountingSyncAPP.Services
                 SELECT 
                     '{fromDateId}_{toDateId}_' +
                     CAST(COUNT(1) AS VARCHAR(50)) + '_' + 
-                    CAST(ISNULL(SUM(CAST(ISNULL(NULLIF(je.TRADVALUE, ''), '0') AS DECIMAL(18, 3))), 0) AS VARCHAR(50))
+                    CAST(ISNULL(SUM(ISNULL(TRY_CAST(NULLIF(LTRIM(RTRIM(je.TRADVALUE)), '') AS DECIMAL(18, 3)), CAST(0 AS DECIMAL(18,3)))), 0) AS VARCHAR(50))
                 FROM {jeTableName} je
                 LEFT JOIN {headlineTableName} head ON je.TRAID = head.TRAID
                 WHERE (LTRIM(RTRIM(je.TRADACCID)) = LTRIM(RTRIM('{request.AccountId}')) OR LTRIM(RTRIM(je.TRADTACCID)) = LTRIM(RTRIM('{request.AccountId}')))

@@ -87,9 +87,9 @@ namespace AccountingSyncAPP.Services
                             WHEN h.TRALSTID = '507'
                                  THEN  CAST(ISNULL(NULLIF(d.TRADQTY,''),'0') AS DECIMAL(18,3))
                                        * ({RealPackFactorExpr})
-                            ELSE 0
+                            ELSE CAST(0 AS DECIMAL(18,3))
                         END
-                    ), 0)
+                    ), CAST(0 AS DECIMAL(18,3))) AS Value
                     FROM {detailItemTable} d
                     INNER JOIN {headlineTable} h ON d.TRAID = h.TRAID
                     WHERE h.TRADATEID < {{0}}
